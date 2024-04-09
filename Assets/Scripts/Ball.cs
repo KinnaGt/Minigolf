@@ -1,4 +1,3 @@
-using System.Drawing;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -12,6 +11,9 @@ public class Ball : MonoBehaviour
     [SerializeField]
     private BallState ballState;
 
+    Vector3 initialDistance;
+    Vector3 dragDistance;
+
     void Awake()
     {
         mainCamera = Camera.main;
@@ -22,22 +24,70 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
+        Click();
+        ClickUp();
+        Stop();
+        ResetInput();
+    }
+
+    void ResetInput()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetBall();
+        }
+    }
+
+    void Stop()
+    {
         switch (ballState)
         {
-            case BallState.Pointing:
-                PointBall();
-                break;
-            case BallState.SelectForce:
-                SelectForce();
-                break;
             case BallState.Moving:
+                if (rb.velocity.magnitude < 0.1f)
+                {
+                    ballState = BallState.Pointing;
+                }
                 break;
         }
     }
 
-    private void PointBall() { }
+    void Click()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            switch (ballState)
+            {
+                case BallState.Pointing:
+                    PointBall();
+                    break;
+            }
+        }
+    }
 
-    private void SelectForce() { }
+    void ClickUp()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            switch (ballState)
+            {
+                case BallState.SelectForce:
+                    SelectForce();
+                    break;
+            }
+        }
+    }
+
+    private void PointBall()
+    {
+        ballState = BallState.SelectForce;
+        initialDistance = Input.mousePosition;
+    }
+
+    private void SelectForce()
+    {
+        ballState = BallState.Moving;
+
+    }
 
     private void ResetBall()
     {
