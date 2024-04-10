@@ -12,13 +12,16 @@ public class CameraController : MonoBehaviour
 
     float currentAngle = 0f;
 
+    [SerializeField]
+    float rotationSpeed = 5f;
+
     void Update()
     {
         if (followObject != null)
         {
             if (Input.GetMouseButton(0))
             {
-                currentAngle += Input.GetAxis("Mouse X");
+                currentAngle += Input.GetAxis("Mouse X") * rotationSpeed;
             }
 
             Quaternion rotation = Quaternion.Euler(0, currentAngle, 0);
