@@ -13,6 +13,12 @@ public class Ball : MonoBehaviour
 
     [SerializeField]
     float forceMagnitude = 500f;
+    [SerializeField]
+    float stopDelay;
+    float stopTimer;
+
+    [SerializeField]
+    GameObject arrowPreview;
 
     public delegate void BallStateHandler(BallState ballState);
     public event BallStateHandler OnBallStateChange;
@@ -23,7 +29,7 @@ public class Ball : MonoBehaviour
         this.ballState = ballState;
         OnBallStateChange?.Invoke(ballState);
     }
-    
+
     #endregion
 
     void Awake()
@@ -37,7 +43,6 @@ public class Ball : MonoBehaviour
     void Update()
     {
         Click();
-        ClickUp();
         Stop();
         ResetInput();
     }
@@ -55,9 +60,12 @@ public class Ball : MonoBehaviour
         switch (ballState)
         {
             case BallState.Moving:
-                if (rb.velocity.magnitude < 0.1f)
+                stopTimer += Time.deltaTime;
+
+                if (stopTimer >= stopDelay && rb.velocity.magnitude < 0.1f)
                 {
                     ChangeState(BallState.Pointing);
+                    stopTimer = 0f;
                 }
                 break;
         }
@@ -72,16 +80,6 @@ public class Ball : MonoBehaviour
                 case BallState.Pointing:
                     PointBall();
                     break;
-            }
-        }
-    }
-
-    void ClickUp()
-    {
-        if (Input.GetMouseButtonUp(0))
-        {
-            switch (ballState)
-            {
                 case BallState.SelectForce:
                     SelectForce();
                     break;
@@ -97,9 +95,8 @@ public class Ball : MonoBehaviour
     private void SelectForce()
     {
         ChangeState(BallState.Moving);
-        // Calcula la dirección en la que la cámara está mirando
+
         Vector3 direction = mainCamera.transform.forward;
-        Debug.Log("Direction: " + direction);
         direction.y = 0;
 
         rb.AddForce(direction * forceMagnitude);
