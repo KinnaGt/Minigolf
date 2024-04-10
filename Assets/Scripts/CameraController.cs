@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -15,19 +13,39 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     float rotationSpeed = 5f;
 
+    private bool blocked;
+
+    void Awake()
+    {
+        Ball ball = FindObjectOfType<Ball>();
+        ball.OnBallStateChange += ChangeState;
+    }
+
+    private void ChangeState(BallState ballState)
+    {
+        switch (ballState)
+        {
+            case BallState.Pointing:
+                blocked = false;
+                break;
+            default:
+                blocked = true;
+                break;
+        }
+    }
+
     void Update()
     {
-        if (followObject != null)
+        if (followObject != null && !blocked)
         {
             if (Input.GetMouseButton(0))
             {
                 currentAngle += Input.GetAxis("Mouse X") * rotationSpeed;
             }
-
-            Quaternion rotation = Quaternion.Euler(0, currentAngle, 0);
-            transform.position = followObject.position + rotation * offset;
-
-            transform.LookAt(followObject);
         }
+        Quaternion rotation = Quaternion.Euler(0, currentAngle, 0);
+        transform.position = followObject.position + rotation * offset;
+
+        transform.LookAt(followObject);
     }
 }
