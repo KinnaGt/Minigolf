@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
@@ -110,6 +111,7 @@ public class Ball : MonoBehaviour
         Vector3[] linePoints = lineForce.GetLinePoints();
         if (linePoints != null && linePoints.Length >= 2)
         {
+            Debug.Log("Punto de la bola"+ linePoints[0] + " Punto seleccionado" + linePoints[1]);
             Vector3 launchDirection = (linePoints[1] - linePoints[0]).normalized;
             LaunchObject(launchDirection);
         }
@@ -122,7 +124,8 @@ public class Ball : MonoBehaviour
         {
             launchDirection.y = 0;
             Vector3 force = -launchDirection.normalized * forceMagnitude;
-            rb.AddForce(force, ForceMode.Impulse);
+            Debug.Log(force);
+            rb.AddForce(force, ForceMode.Force);
         }
     }
 
@@ -130,10 +133,16 @@ public class Ball : MonoBehaviour
     {
         if (other.CompareTag("Goal"))
         {
+            NextLevel();
+        }else if(other.CompareTag("Floor")){
             ResetBall();
         }
     }
 
+    private void NextLevel(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    
     private void ResetBall()
     {
         rb.velocity = Vector3.zero;

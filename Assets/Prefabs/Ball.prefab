@@ -261,8 +261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
-  ballState: 0
-  forceMagnitude: 500
+  lineForce: {fileID: 543450653438247541}
+  ballState: 1
+  forceMagnitude: 5
   stopDelay: 1
 --- !u!114 &543450653438247541
 MonoBehaviour:
