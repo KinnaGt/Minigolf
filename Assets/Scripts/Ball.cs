@@ -4,12 +4,12 @@ public class Ball : MonoBehaviour
 {
     private Rigidbody rb;
 
-    Camera mainCamera;
+    public Camera mainCamera;
 
     private Vector3 originalPos;
 
     [SerializeField]
-    private BallState ballState;
+    private BallState ballState = BallState.Pointing;
 
     [SerializeField]
     float forceMagnitude = 500f;
@@ -17,8 +17,6 @@ public class Ball : MonoBehaviour
     float stopDelay;
     float stopTimer;
 
-    [SerializeField]
-    GameObject arrowPreview;
 
     public delegate void BallStateHandler(BallState ballState);
     public event BallStateHandler OnBallStateChange;
@@ -78,24 +76,23 @@ public class Ball : MonoBehaviour
             switch (ballState)
             {
                 case BallState.Pointing:
-                    PointBall();
+                    SelectForce();
                     break;
                 case BallState.SelectForce:
-                    SelectForce();
+                    Launch();
                     break;
             }
         }
     }
 
-    private void PointBall()
+    private void SelectForce()
     {
         ChangeState(BallState.SelectForce);
     }
 
-    private void SelectForce()
+    private void Launch()
     {
         ChangeState(BallState.Moving);
-
         Vector3 direction = mainCamera.transform.forward;
         direction.y = 0;
 

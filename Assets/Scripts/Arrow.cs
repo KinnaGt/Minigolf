@@ -9,7 +9,7 @@ public class Arrow : MonoBehaviour
     Ball ball;
 
     [SerializeField]
-    Vector3 offsetPos;
+    Vector3 offsetPos = new Vector3(0, 0, 0);
 
     void Awake()
     {
@@ -19,12 +19,10 @@ public class Arrow : MonoBehaviour
 
     void Update()
     {
-        Position();
-    }
-
-    void Position()
-    {
-        transform.position = ball.transform.position + offsetPos;
+        Vector3 direction =
+            new(ball.mainCamera.transform.forward.x, 0, ball.mainCamera.transform.forward.z);
+        Debug.Log("camera direction: " + direction);
+        transform.position = ball.transform.position + direction + offsetPos;
     }
 
     private void ChangeState(BallState ballState)
