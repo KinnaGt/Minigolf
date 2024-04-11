@@ -16,7 +16,8 @@ public class Ball : MonoBehaviour
     private BallState ballState = BallState.Pointing;
 
     [SerializeField]
-    float forceMagnitude = 500f;
+    float factor = 500f;
+    float forceMagnitude;
 
     [SerializeField]
     float stopDelay;
@@ -111,8 +112,10 @@ public class Ball : MonoBehaviour
         Vector3[] linePoints = lineForce.GetLinePoints();
         if (linePoints != null && linePoints.Length >= 2)
         {
-            Debug.Log("Punto de la bola"+ linePoints[0] + " Punto seleccionado" + linePoints[1]);
             Vector3 launchDirection = (linePoints[1] - linePoints[0]).normalized;
+            float distance = Vector3.Distance(linePoints[0], linePoints[1]);
+            forceMagnitude = distance * factor; 
+
             LaunchObject(launchDirection);
         }
     }
@@ -122,9 +125,10 @@ public class Ball : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
-            launchDirection.y = 0;
+            launchDirection = new Vector3(launchDirection.x, 0f, launchDirection.z).normalized;
+
             Vector3 force = -launchDirection.normalized * forceMagnitude;
-            Debug.Log(force);
+            force.y = 0f;
             rb.AddForce(force, ForceMode.Force);
         }
     }
@@ -134,15 +138,18 @@ public class Ball : MonoBehaviour
         if (other.CompareTag("Goal"))
         {
             NextLevel();
-        }else if(other.CompareTag("Floor")){
+        }
+        else if (other.CompareTag("Floor"))
+        {
             ResetBall();
         }
     }
 
-    private void NextLevel(){
+    private void NextLevel()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    
+
     private void ResetBall()
     {
         rb.velocity = Vector3.zero;
