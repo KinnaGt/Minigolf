@@ -17,11 +17,13 @@ public class LineForce : MonoBehaviour
     {
         switch (ballState)
         {
-            case BallState.Moving:
-                showLine = false;
+            case BallState.SelectForce:
+                showLine = true;
+                lineRenderer.enabled = true;
                 break;
             default:
-                showLine = true;
+                lineRenderer.enabled = false;
+                showLine = false;
                 break;
         }
     }
@@ -49,5 +51,14 @@ public class LineForce : MonoBehaviour
         lineRenderer.enabled = true;
     }
 
+    public Vector3[] GetLinePoints()
+    {
+        if (lineRenderer.positionCount < 2)
+            return null;
+
+        Vector3[] points = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(points);
+        return points;
+    }
     
 }

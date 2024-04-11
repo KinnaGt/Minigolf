@@ -1092,6 +1092,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6525000415010895820, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
   m_PrefabInstance: {fileID: 6703551090167920035}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &543450653438247541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 543450653438247541, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
+  m_PrefabInstance: {fileID: 6703551090167920035}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5b22e288d67c14b8e5de72d6f44250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6703551090167920035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1146,6 +1157,22 @@ PrefabInstance:
     - target: {fileID: 6525000415010895820, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6703551091127554484, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
+      propertyPath: ballState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6703551091127554484, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
+      propertyPath: lineForce
+      value: 
+      objectReference: {fileID: 543450653438247541}
+    - target: {fileID: 6703551091127554484, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 963194227}
+    - target: {fileID: 6703551091127554484, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
+      propertyPath: forceMagnitude
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}

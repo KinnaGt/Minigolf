@@ -9,14 +9,17 @@ public class Ball : MonoBehaviour
     private Vector3 originalPos;
 
     [SerializeField]
+    private LineForce lineForce;
+
+    [SerializeField]
     private BallState ballState = BallState.Pointing;
 
     [SerializeField]
     float forceMagnitude = 500f;
+
     [SerializeField]
     float stopDelay;
     float stopTimer;
-
 
     public delegate void BallStateHandler(BallState ballState);
     public event BallStateHandler OnBallStateChange;
@@ -41,6 +44,7 @@ public class Ball : MonoBehaviour
     void Update()
     {
         Click();
+        ClickUp();
         Stop();
         ResetInput();
     }
@@ -71,14 +75,22 @@ public class Ball : MonoBehaviour
 
     void Click()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetMouseButtonDown(0))
         {
             switch (ballState)
             {
                 case BallState.Pointing:
                     SelectForce();
                     break;
+            }
+        }
+    }
+    void ClickUp(){
+        if(Input.GetMouseButtonUp(0)){
+            switch (ballState)
+            {
                 case BallState.SelectForce:
+                    ChangeState(BallState.Moving);
                     Launch();
                     break;
             }
@@ -92,11 +104,22 @@ public class Ball : MonoBehaviour
 
     private void Launch()
     {
-        ChangeState(BallState.Moving);
-        Vector3 direction = mainCamera.transform.forward;
-        direction.y = 0;
+        Vector3[] linePoints = lineForce.GetLinePoints();
+        if (linePoints != null && linePoints.Length >= 2)
+        {
+            Vector3 launchDirection = (linePoints[1] - linePoints[0]).normalized;
+            LaunchObject(launchDirection);
+        }
+    }
 
-        rb.AddForce(direction * forceMagnitude);
+    private void LaunchObject(Vector3 launchDirection)
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            launchDirection.y = 0;
+            rb.velocity = -launchDirection * forceMagnitude;
+        }
     }
 
     private void ResetBall()
