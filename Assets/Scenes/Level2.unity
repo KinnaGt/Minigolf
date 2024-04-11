@@ -2676,33 +2676,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6703551091127554480, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
-      propertyPath: m_Drag
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703551091127554480, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
-      propertyPath: m_Mass
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703551091127554480, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703551091127554484, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
-      propertyPath: factor
-      value: 750
-      objectReference: {fileID: 0}
-    - target: {fileID: 6703551091127554484, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
-      propertyPath: ballState
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6703551091127554484, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 6703551091127554484, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
-      propertyPath: forceMagnitude
-      value: 500
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a2e23e41a6879548837b053d916e80e, type: 3}
