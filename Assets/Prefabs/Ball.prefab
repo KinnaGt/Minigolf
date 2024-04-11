@@ -39,7 +39,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467877699}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -263,9 +263,9 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   lineForce: {fileID: 543450653438247541}
   ballState: 1
-  factor: 750
+  factor: 500
   stopDelay: 1
-  maxForce: 300
+  maxForce: 400
 --- !u!114 &543450653438247541
 MonoBehaviour:
   m_ObjectHideFlags: 0
