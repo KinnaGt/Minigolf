@@ -85,8 +85,11 @@ public class Ball : MonoBehaviour
             }
         }
     }
-    void ClickUp(){
-        if(Input.GetMouseButtonUp(0)){
+
+    void ClickUp()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
             switch (ballState)
             {
                 case BallState.SelectForce:
@@ -118,7 +121,16 @@ public class Ball : MonoBehaviour
         if (rb != null)
         {
             launchDirection.y = 0;
-            rb.velocity = -launchDirection * forceMagnitude;
+            Vector3 force = -launchDirection.normalized * forceMagnitude;
+            rb.AddForce(force, ForceMode.Impulse);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Goal"))
+        {
+            ResetBall();
         }
     }
 
