@@ -118,7 +118,6 @@ public class Ball : MonoBehaviour
             Vector3 launchDirection = (linePoints[1] - linePoints[0]).normalized;
             float distance = Vector3.Distance(linePoints[0], linePoints[1]);
             forceMagnitude = distance * factor; 
-            Debug.Log(forceMagnitude);
             forceMagnitude = Mathf.Clamp(forceMagnitude, 0f, maxForce);
             LaunchObject(launchDirection);
         }
